@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnalisation de la Page</title>
+    <style>
+        #settingsBar {
+            border: 1px solid #ccc;
+            padding: 10px;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none; /* Cache par défaut */
+        }
+
+        .control-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        .text {
+            display: none;
+            margin-left: 5px;
+        }
+
+        .control-label:hover .icon {
+            opacity: 0; /* Cache l'icône */
+        }
+
+        .control-label:hover .text {
+            display: inline; /* Affiche le texte */
+        }
+    </style>
+</head>
+<body>
+    <h1>Personnalisez votre expérience</h1>
+    <button id="toggleSettings">Réglages</button>
+    
+    <div id="settingsBar">
+        <h2>Réglages</h2>
+
+        <div class="control-label">
+            <div class="icon">📏</div>
+            <span class="text">Taille de police</span>
+            <input type="range" id="fontSize" min="10" max="40" value="16"><br><br>
+        </div>
+
+        <div class="control-label">
+            <div class="icon">🎨</div>
+            <span class="text">Couleur de fond</span>
+            <input type="color" id="bgColor"><br><br>
+        </div>
+
+        <div class="control-label">
+            <div class="icon">✍️</div>
+            <span class="text">Couleur de la police</span>
+            <input type="color" id="textColor"><br><br>
+        </div>
+
+        <div class="control-label">
+            <div class="icon">⚖️</div>
+            <span class="text">Contraste</span>
+            <select id="contrast">
+                <option value="normal">Normal</option>
+                <option value="high">Élevé</option>
+            </select><br><br>
+        </div>
+
+        <div class="control-label">
+            <div class="icon">🌞</div>
+            <span class="text">Luminosité</span>
+            <input type="range" id="brightness" min="0" max="200" value="100"><br><br>
+        </div>
+        
+        <div class="control-label">
+            <div class="icon">🔤</div>
+            <span class="text">Choix de police</span>
+            <select id="fontFamily">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Georgia">Georgia</option>
+            </select><br><br>
+        </div>
+
+        <div class="control-label">
+            <div class="icon">🖼️</div>
+            <span class="text">Taille des images</span>
+            <input type="range" id="imageSize" min="50" max="200" value="100"><br><br>
+        </div>
+        
+        <button id="focusModeButton" onclick="toggleFocusMode()">Mode Focus: 🔍</button>
+    </div>
+
+    <script>
+        // Toggle de la barre de réglages
+        document.getElementById('toggleSettings').addEventListener('click', function() {
+            const settingsBar = document.getElementById('settingsBar');
+            settingsBar.style.display = settingsBar.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Réglages des styles
+        document.getElementById('fontSize').addEventListener('input', function() {
+            document.body.style.fontSize = this.value + 'px';
+        });
+
+        document.getElementById('bgColor').addEventListener('input',
+        document.body.style.backgroundColor = this.value;
+        });
+
+        document.getElementById('textColor').addEventListener('input', function() {
+            document.body.style.color = this.value;
+        });
+
+        document.getElementById('contrast').addEventListener('change', function() {
+            if (this.value === 'high') {
+                document.body.style.filter = 'contrast(150%)';
+            } else {
+                document.body.style.filter = 'contrast(100%)';
+            }
+        });
+
+        document.getElementById('brightness').addEventListener('input', function() {
+            document.body.style.filter = `brightness(${this.value}%)`;
+        });
+
+        document.getElementById('fontFamily').addEventListener('change', function() {
+            document.body.style.fontFamily = this.value;
+        });
+
+        document.getElementById('imageSize').addEventListener('input', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(image => {
+                image.style.width = this.value + '%';
+            });
+        });
+
+        function toggleFocusMode() {
+            const content = document.getElementById('content');
+            content.style.fontWeight = content.style.fontWeight === 'bold' ? 'normal' : 'bold';
+        }
+    </script>
+</body>
+</html>
